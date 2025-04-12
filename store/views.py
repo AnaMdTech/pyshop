@@ -47,3 +47,15 @@ def register_view(request):
         else:
             messages.error(request, 'Passwords do not match')
     return render(request, 'store/register.html')
+
+def add_to_cart(request, pk):
+    cart = request.session.get('cart', [])
+    if pk not in cart:
+        cart.append(pk)
+    request.session['cart'] = cart
+    return redirect('cart')
+
+def cart_view(request):
+    cart = request.session.get('cart', [])
+    products = Product.objects.filter(id__in=cart)
+    return render(request, 'store/cart.html', {'products': products})
