@@ -7,5 +7,23 @@
 </head>
 <body>
   <h1>Welcome to PyShop 🛍️</h1>
+
+  {% if products %}
+    <ul>
+      {% for product in products %}
+          <li>
+              <h2>{{ product.name }}</h2>
+              <p>💰 Price: ${{ product.price }}</p>
+              <p>{{ product.description }}</p>
+              {% if product.image %}
+                  <img src="{{ product.image.url }}" alt="{{ product.name }}" width="200">
+              {% endif %}
+              <hr>
+          </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>No products found.</p>
+    {% endif %}
 </body>
 </html>
